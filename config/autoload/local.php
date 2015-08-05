@@ -12,4 +12,18 @@
  */
 
 return array(
+		
+/*		'db' => array(
+		 'username' => 'shaguangbula',
+		'password' => 'ANFERNEE8379',
+		),
+*/
+//以上配置适用服务器数据库
+//以下配置适用本地数据库
+		
+		'db' => array(
+				'username' => 'usrapi',
+				'password' => 'pwdapi',
+		),
+		
 );

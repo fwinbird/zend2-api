@@ -13,7 +13,7 @@ return array(
             'wall' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route'    => '/:username',
+                    'route'    => '/api/wall/:username',
                     'constraints' => array(
                         'username' => '\w+'
                     ),

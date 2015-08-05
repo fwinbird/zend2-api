@@ -18,7 +18,7 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-//		die('indexaction');
+		die('zend2-api indexaction');
     	$viewData = array();
         
         $username = $this->params()->fromRoute('username');
