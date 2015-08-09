@@ -9,16 +9,23 @@
 
 namespace Wall;
 
-use Zend\Mvc\ModuleRouteListener;
-use Zend\Mvc\MvcEvent;
-
 class Module
 {
+    /**
+     * Convenience method to return the config file
+     *
+     * @return string
+     */
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
     }
-
+    
+    /**
+     * Return an autoloader configured namespace
+     *
+     * @return array
+     */
     public function getAutoloaderConfig()
     {
         return array(

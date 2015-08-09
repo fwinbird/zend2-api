@@ -9,32 +9,46 @@
 
 namespace Common;
 
-use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 
 class Module
 {
-    public function onBootstrap(MvcEvent $e)
-    {
-        $e->getApplication()->getServiceManager()->get('translator');
-        $eventManager        = $e->getApplication()->getEventManager();
-        $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->attach($eventManager);
-    }
-
+    /**
+     * Convenience method to return the config file
+     *
+     * @return string
+     */
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
     }
-
+    
+    /**
+     * Return an autoloader configured namespace
+     *
+     * @return array
+     */
     public function getAutoloaderConfig()
     {
         return array(
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
-                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
+                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__
                 ),
             ),
         );
+    }
+    
+    /**
+     * Attaches the ApiErrorListener on the render event
+     *
+     * @param MvcEvent $e
+     */
+    public function onBootstrap($e)
+    {
+        $app = $e->getTarget();
+        $services = $app->getServiceManager();
+        $events = $app->getEventManager();
+        $events->attach($services->get('Common\Listeners\ApiErrorListener'));
     }
 }
