@@ -12,13 +12,6 @@ namespace Wall\Controller;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 
-use Zend\Http\Client;
-use Zend\Filter\FilterChain;
-use Zend\Filter\StripTags;
-use Zend\Filter\StringTrim;
-use Zend\Filter\StripNewLines;
-use Zend\Dom\Query;
-
 /**
  * This class is the responsible to answer the requests to the /wall endpoint
  *
@@ -40,35 +33,36 @@ class IndexController extends AbstractRestfulController
      * @param string $username 
      * @return array
      */
-    public function indexAction()
-//    public function get($username)
+    public function get($username)
     {
-    	$testusersTable = $this->getUsersTable();
-        die('getfunction/indexaction');
-        $userData = $testusersTable->getByUsername($username);
-        $wallData = $userData->getArrayCopy();
-        die('getfunction/indexaction');
-        
-        if ($userData !== false) {
-            return new JsonModel($wallData);
-        } else {
-            throw new \Exception('User not found', 404);
-        }
+        $this->methodNotAllowed();
+
     }
     
+	public function IndexAction()
+	{
+		$username = $this->params()->fromRoute('username');
+		$testusersTable = $this->getTestUsersTable();
+		$userData = $testusersTable->getByUsername($username);
+	
+		$wallData = $userData->getArrayCopy();
+		
+		if ($userData !== false) {
+			return new JsonModel($wallData);
+		} else {
+			throw new \Exception('User not found', 404);
+		}
+		
+	}
     /**
      * Method not available for this endpoint
      *
      * @return void
      */
-	public function get($id)
-    {
-        $this->methodNotAllowed();
-    }
-    
     public function getList()
     {
         $this->methodNotAllowed();
+        
     }
     
     /**
@@ -112,12 +106,10 @@ class IndexController extends AbstractRestfulController
      *
      * @return UsersTable
      */
-    protected function getUsersTable()
+    protected function getTestUsersTable()
     {
-    	if (!$this->testusersTable) {		
-            $sm = $this->getServiceLocator();
-            die($this->getServiceLocator);
-            
+        if (!$this->testusersTable) {
+            $sm = $this->getServiceLocator();            
             $this->testusersTable = $sm->get('Users\Model\TestUsersTable');
         }
         return $this->testusersTable;

@@ -19,7 +19,7 @@ return array(
                     ),
                     'defaults' => array(
                         'controller' => 'Wall\Controller\Index',
-                    	'action'     => 'index',
+                    		'action' => 'index',
                     ),
                 ),
             ),
@@ -30,4 +30,12 @@ return array(
             'Wall\Controller\Index' => 'Wall\Controller\IndexController',
         ),
     ),
+    
+/*    'di' => array(
+    		'services' => array(
+    				'Users\Model\TestUsersTable' => 'Users\Model\TestUsersTable'
+    		)
+    ),
+*/    
+
 );
